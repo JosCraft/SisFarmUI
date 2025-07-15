@@ -133,8 +133,8 @@ export const columns: ColumnDef<IProduct>[] = [
         </Button>
       )
     },
-    cell: ({ getValue }) => {
-      return <div className="text-sm font-medium">{getValue()}</div>
+    cell: ({ row }) => {
+      return <div className="text-sm font-medium">{row.getValue("price_purchase")}</div>
     },
   },
   {

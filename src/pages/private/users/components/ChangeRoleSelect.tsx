@@ -1,6 +1,6 @@
 "use client"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import type { Role } from "@/types/user"
+import type { Role } from "@/interface/user"
 
 interface ChangeRoleSelectProps {
   userId: number
