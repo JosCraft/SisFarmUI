@@ -29,7 +29,6 @@ interface UsersTableProps {
 
 export function UsersTable({
   data,
-  roles,
   onEdit,
   onDelete,
   onRoleChange,
@@ -69,7 +68,6 @@ export function UsersTable({
         <ChangeRoleSelect
           userId={row.original.id}
           currentRoleId={row.getValue("role_id")}
-          roles={roles}
           onRoleChange={onRoleChange}
         />
       ),

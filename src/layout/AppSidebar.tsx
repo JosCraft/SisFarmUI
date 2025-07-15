@@ -10,11 +10,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 export function AppSidebar() {
 
-  const pathname = window.location.pathname // Usar window.location.pathname para obtener la ruta actual
+  const pathname = useLocation().pathname
 
   const navItems = [
     {
@@ -39,7 +39,7 @@ export function AppSidebar() {
     },
     {
       title: "Productos",
-      url: "/dashboard/products",
+      url: "/dashboard/productos",
       icon: PackageIcon, // Usar el icono renombrado
     },
   ]

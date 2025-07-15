@@ -14,7 +14,7 @@ import InputField from "@/components/fields/InputField"
 import { useNavigate } from "react-router-dom"
 
 const validationSchema = Yup.object({
-  name: Yup.string().required("El usuario es requerido"),
+  username: Yup.string().required("El usuario es requerido"),
   password: Yup.string().required("La contraseña es requerida"),
 })
 
@@ -51,23 +51,18 @@ export default function LoginPage() {
           </div>
           <Formik
             initialValues={{
-              name: "admin",
+              username: "admin",
               password: "admin",
               rememberMe: false,
             }}
             onSubmit={(values, { setSubmitting }) => {
-              console.log("Formulario enviado con valores:", values)
-              login(
-                {
-                  username: values.name,
-                  password: values.password,
-                },
+              login(values,
                 {
                   onSuccess: (data) => {
                     setUser(data.data)
                     setIsAllowed(true)
                     localStorage.setItem("token", data.data.token)
-                    navigate("/dashboard") // Use navigate from react-router-dom
+                    navigate("/farmacias") // Use navigate from react-router-dom
                   },
                   onSettled: () => {
                     setSubmitting(false)
@@ -83,7 +78,11 @@ export default function LoginPage() {
                   <Label htmlFor="name" className="text-sm text-text-body">
                     Usuario
                   </Label>
-                  <InputField name="name" placeholder="Ingresar tu nombre de usuario" disabled={isSubmitting} />
+                  <InputField
+                    name="username"
+                    placeholder="Ingresar tu nombre de usuario"
+                    disabled={isSubmitting}
+                  />
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="password" className="text-sm text-text-body">

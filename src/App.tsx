@@ -7,11 +7,13 @@ import ProvidersPage from "./pages/private/supptiers/SuppliersPage"
 import CustomersPage from "./pages/private/customers/CustomersPage"
 import LoginPage from "./pages/public/login/LoginPage"
 import LayoutDashboard from "./layout/LayoutDashboard"
+import PharmacyPage from "./pages/private/pharmacy/PharmacyPage"
 
 function App() {
   return (
     <Routes>
       <Route index element={<LoginPage />} />
+      <Route path="farmacias" element={<PharmacyPage />} />
       <Route path="dashboard" element={<LayoutDashboard />} >
         <Route index element={<DashboardPage />} />
         <Route path="productos" element={<ProductPage />} />

@@ -1,19 +1,20 @@
-"use client"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import type { Role } from "@/interface/user"
+import { useGetRol } from "@/hooks/useRol"
 
 interface ChangeRoleSelectProps {
   userId: number
   currentRoleId: number
-  roles: Role[]
   onRoleChange: (userId: number, newRoleId: number) => void
   disabled?: boolean
 }
 
-export function ChangeRoleSelect({ userId, currentRoleId, roles, onRoleChange, disabled }: ChangeRoleSelectProps) {
+export function ChangeRoleSelect({ userId, currentRoleId, onRoleChange, disabled }: ChangeRoleSelectProps) {
+
   const handleValueChange = (value: string) => {
-    onRoleChange(userId, Number.parseInt(value))
+    onRoleChange(userId, parseInt(value))
   }
+
+  const { data: roles } = useGetRol()
 
   return (
     <Select value={String(currentRoleId)} onValueChange={handleValueChange} disabled={disabled}>
