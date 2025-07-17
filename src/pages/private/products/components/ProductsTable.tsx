@@ -291,7 +291,6 @@ export function ProductsTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="hover:bg-pharmacy-secondary-light/50"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
@@ -314,7 +313,7 @@ export function ProductsTable({
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
-          className="border-gray-300 hover:bg-pharmacy-secondary-light hover:text-pharmacy-primary"
+          className="border-gray-300"
         >
           Anterior
         </Button>
@@ -323,7 +322,7 @@ export function ProductsTable({
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
-          className="border-gray-300 hover:bg-pharmacy-secondary-light hover:text-pharmacy-primary"
+          className="border-gray-300"
         >
           Siguiente
         </Button>

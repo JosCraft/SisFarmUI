@@ -14,13 +14,13 @@ import { CreateSaleModal } from "./components/CreateSaleModal"
 
 export default function ProductsPage() {
 
-  const [isFormModalOpen, setIsFormModalOpen] = useState(false) // Para crear/editar
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false) // Para formularios
   const [isDeleting, setIsDeleting] = useState(false) // Para eliminación
-  const [selectedProductsForCart, setSelectedProductsForCart] = useState<IProduct[]>([]) // Para el carrito
+  const [selectedProductsForCart, setSelectedProductsForCart] = useState<IProduct[]>([])
   const { data: { data: products } } = useGetProductsPaginate()
   const { data: presentations } = useGetPresentations()
   const { data: categories } = useGetCategories()

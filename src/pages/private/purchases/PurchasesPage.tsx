@@ -1,12 +1,11 @@
-import { useState } from "react"
-import type { IPurchase } from "@/interface/purchase"
-import { mockPurchases, mockUsers } from "@/utils/constant"
+import { mockUsers } from "@/utils/constant"
 import { PurchaseFormModal } from "./components/PurchaseFormModal"
 import { PurchasesTable } from "./components/PurchasesTable"
+import { usePurchasesPaginate } from "@/hooks/usePurchase"
 
 export default function PurchasesPage() {
 
-  const [purchases] = useState<IPurchase[]>(mockPurchases as any)
+  const { data: { data: purchases } } = usePurchasesPaginate(1)
 
   return (
     <div className="container mx-auto py-8">

@@ -1,6 +1,3 @@
-"use client"
-
-import * as React from "react"
 import {
   type ColumnDef,
   flexRender,
@@ -13,8 +10,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Package, ArrowUpDown } from "lucide-react"
+import { useState } from "react"
 
-// Types
 interface BestSellingProduct {
   id: number
   name: string
@@ -29,7 +26,6 @@ interface OutOfStockProduct {
   amount: string
 }
 
-// Sample data
 const bestSellingProducts: BestSellingProduct[] = [
   {
     id: 1,
@@ -96,7 +92,6 @@ const outOfStockProducts: OutOfStockProduct[] = [
   },
 ]
 
-// Column definitions for best selling products
 const bestSellingColumns: ColumnDef<BestSellingProduct>[] = [
   {
     accessorKey: "name",
@@ -148,7 +143,6 @@ const bestSellingColumns: ColumnDef<BestSellingProduct>[] = [
   },
 ]
 
-// Column definitions for out of stock products
 const outOfStockColumns: ColumnDef<OutOfStockProduct>[] = [
   {
     accessorKey: "assetName",
@@ -200,7 +194,6 @@ const outOfStockColumns: ColumnDef<OutOfStockProduct>[] = [
   },
 ]
 
-// Data Table Component
 function DataTable<TData, TValue>({
   columns,
   data,
@@ -208,7 +201,8 @@ function DataTable<TData, TValue>({
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+
+  const [sorting, setSorting] = useState<SortingState>([])
 
   const table = useReactTable({
     data,
@@ -216,9 +210,7 @@ function DataTable<TData, TValue>({
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    state: {
-      sorting,
-    },
+    state: { sorting },
   })
 
   return (
@@ -230,7 +222,8 @@ function DataTable<TData, TValue>({
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header,
+                      header.getContext())}
                   </TableHead>
                 )
               })}

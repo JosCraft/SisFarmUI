@@ -1,4 +1,3 @@
-"use client"
 import { Formik, Form, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import { Loader2 } from "lucide-react"

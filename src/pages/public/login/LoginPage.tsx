@@ -1,17 +1,14 @@
-"use client"
-
-import { useState } from "react"
-import { Field, Form, Formik } from "formik"
+import { Form, Formik } from "formik"
 import * as Yup from "yup"
-import { Eye, EyeOff, Loader2, Package } from "lucide-react"
+import { Loader2, Package } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useLogin } from "@/hooks/useAuth" // Assuming this hook exists
 import { useAuthStore } from "@/store/useAuthStore" // Assuming this store exists
 import InputField from "@/components/fields/InputField"
 import { useNavigate } from "react-router-dom"
+import PasswordField from "@/components/fields/PasswordField"
 
 const validationSchema = Yup.object({
   username: Yup.string().required("El usuario es requerido"),
@@ -19,7 +16,7 @@ const validationSchema = Yup.object({
 })
 
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false)
+  
   const { mutate: login } = useLogin()
   const { setUser, setIsAllowed } = useAuthStore()
   const navigate = useNavigate()
@@ -41,8 +38,8 @@ export default function LoginPage() {
         <div className="w-full max-w-sm">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center mb-4">
-              <div className="w-8 h-8 bg-pharmacy-primary rounded-lg mr-2 flex items-center justify-center">
-                <Package className="w-5 h-5 text-white" /> {/* Added a simple icon for the logo */}
+              <div className="w-8 h-8 rounded-lg mr-2 flex items-center justify-center">
+                <Package className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-semibold text-text-heading">Farmacia</span>
             </div>
@@ -62,7 +59,7 @@ export default function LoginPage() {
                     setUser(data.data)
                     setIsAllowed(true)
                     localStorage.setItem("token", data.data.token)
-                    navigate("/farmacias") // Use navigate from react-router-dom
+                    navigate("/farmacias")
                   },
                   onSettled: () => {
                     setSubmitting(false)
@@ -88,25 +85,7 @@ export default function LoginPage() {
                   <Label htmlFor="password" className="text-sm text-text-body">
                     Contraseña
                   </Label>
-                  <div className="relative">
-                    <Field
-                      as={Input}
-                      id="password"
-                      name="password"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Ingresar tu contraseña"
-                      disabled={isSubmitting}
-                      className="w-full pr-10 h-11 text-sm border-gray-300 focus:border-pharmacy-primary focus:ring-pharmacy-primary"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-body"
-                      aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-                    >
-                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
+                  <PasswordField name="password" />
                 </div>
                 <div className="flex items-center justify-between py-2">
                   <div className="flex items-center space-x-2">
@@ -114,7 +93,7 @@ export default function LoginPage() {
                       id="rememberMe"
                       checked={values.rememberMe}
                       onCheckedChange={(checked) => setFieldValue("rememberMe", checked)}
-                      className="border-gray-300 data-[state=checked]:bg-pharmacy-primary data-[state=checked]:text-white"
+                      className="border-gray-300 data-[state=checked]:bg-slate-950 data-[state=checked]:text-white"
                     />
                     <Label htmlFor="rememberMe" className="text-sm text-text-body">
                       Recordarme

@@ -37,38 +37,38 @@ export function ViewProductDetailsModal({
           {/* Sección 1: Información General */}
           <Card className="border border-pharmacy-secondary-light shadow-sm">
             <CardHeader className="p-4 pb-2">
-              <CardTitle className="text-lg text-pharmacy-primary flex items-center">
+              <CardTitle className="text-lg  flex items-center">
                 <Info className="mr-2 h-5 w-5" /> Información General
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 pt-0 grid gap-3">
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                 <Label className="text-text-body flex items-center">
-                  <Tag className="mr-2 h-4 w-4 text-pharmacy-accent" /> Código:
+                  <Tag className="mr-2 h-4 w-4 " /> Código:
                 </Label>
                 <span className="text-text-heading font-semibold">{product.code}</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                 <Label className="text-text-body flex items-center">
-                  <Box className="mr-2 h-4 w-4 text-pharmacy-accent" /> Nombre:
+                  <Box className="mr-2 h-4 w-4 " /> Nombre:
                 </Label>
                 <span className="text-text-heading font-semibold">{product.name}</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                 <Label className="text-text-body flex items-center">
-                  <Package className="mr-2 h-4 w-4 text-pharmacy-accent" /> Categoría:
+                  <Package className="mr-2 h-4 w-4 " /> Categoría:
                 </Label>
                 <span className="text-text-heading">{categoryName}</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                 <Label className="text-text-body flex items-center">
-                  <Box className="mr-2 h-4 w-4 text-pharmacy-accent" /> Presentación:
+                  <Box className="mr-2 h-4 w-4 " /> Presentación:
                 </Label>
                 <span className="text-text-heading">{presentationName}</span>
               </div>
               <div className="flex justify-between items-center">
                 <Label className="text-text-body flex items-center">
-                  <Info className="mr-2 h-4 w-4 text-pharmacy-accent" /> Unidad:
+                  <Info className="mr-2 h-4 w-4 " /> Unidad:
                 </Label>
                 <span className="text-text-heading">{product.unit}</span>
               </div>
@@ -77,31 +77,31 @@ export function ViewProductDetailsModal({
 
           <Card className="border border-pharmacy-secondary-light shadow-sm">
             <CardHeader className="p-4 pb-2">
-              <CardTitle className="text-lg text-pharmacy-primary flex items-center">
+              <CardTitle className="text-lg  flex items-center">
                 <DollarSign className="mr-2 h-5 w-5" /> Precios y Stock
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 pt-0 grid gap-3">
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                 <Label className="text-text-body flex items-center">
-                  <DollarSign className="mr-2 h-4 w-4 text-pharmacy-accent" /> Precio:
+                  <DollarSign className="mr-2 h-4 w-4 " /> Precio:
                 </Label>
                 <span className="text-text-heading font-semibold">${product.price}</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                 <Label className="text-text-body flex items-center">
-                  <Percent className="mr-2 h-4 w-4 text-pharmacy-accent" /> Descuento:
+                  <Percent className="mr-2 h-4 w-4 " /> Descuento:
                 </Label>
                 <span className="text-text-heading">{product.descuento}%</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-100 pb-2">
                 <Label className="text-text-body flex items-center">
-                  <Box className="mr-2 h-4 w-4 text-pharmacy-accent" /> Stock Actual:
+                  <Box className="mr-2 h-4 w-4 " /> Stock Actual:
                 </Label>
                 <Badge
                   className={cn(
                     "font-semibold",
-                    product.stock <= product.stock_min ? "bg-red-500 text-white" : "bg-pharmacy-primary text-white",
+                    product.stock <= product.stock_min ? "bg-red-500 text-white" : "bg-slate-400 text-white",
                   )}
                 >
                   {product.stock}
@@ -109,7 +109,7 @@ export function ViewProductDetailsModal({
               </div>
               <div className="flex justify-between items-center">
                 <Label className="text-text-body flex items-center">
-                  <Box className="mr-2 h-4 w-4 text-pharmacy-accent" /> Stock Mínimo:
+                  <Box className="mr-2 h-4 w-4 " /> Stock Mínimo:
                 </Label>
                 <span className="text-text-heading">{product.stock_min}</span>
               </div>
@@ -118,7 +118,7 @@ export function ViewProductDetailsModal({
 
           <Card className="border border-pharmacy-secondary-light shadow-sm">
             <CardHeader className="p-4 pb-2">
-              <CardTitle className="text-lg text-pharmacy-primary flex items-center">
+              <CardTitle className="text-lg  flex items-center">
                 <FileText className="mr-2 h-5 w-5" /> Descripción
               </CardTitle>
             </CardHeader>
@@ -130,14 +130,14 @@ export function ViewProductDetailsModal({
           {/* Sección 4: Información de Auditoría */}
           <Card className="border border-pharmacy-secondary-light shadow-sm">
             <CardHeader className="p-4 pb-2">
-              <CardTitle className="text-lg text-pharmacy-primary flex items-center">
+              <CardTitle className="text-lg  flex items-center">
                 <Clock className="mr-2 h-5 w-5" /> Información de Auditoría
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 pt-0 grid gap-3">
               <div className="flex justify-between items-center">
                 <Label className="text-text-body flex items-center">
-                  <Clock className="mr-2 h-4 w-4 text-pharmacy-accent" /> Creado el:
+                  <Clock className="mr-2 h-4 w-4 " /> Creado el:
                 </Label>
                 <span className="text-text-heading">
                 </span>

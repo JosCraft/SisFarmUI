@@ -24,6 +24,7 @@ import type { User } from "@/interface/user"
 import { useGetProducts } from "@/hooks/useProducts"
 import { useGetSuppliers } from "@/hooks/useSupptiers"
 import { Fragment, useState } from "react"
+import { CashIcon, MasterCardIcon, QRCodeIcon } from "@/components/icons/paymentIcon"
 
 const paymentTypes = ["cash", "credit", "debit"]
 const purchaseStatuses = ["completada", "pendiente", "cancelada"]
@@ -109,9 +110,10 @@ export function PurchasesTable({ data, users }: PurchasesTableProps) {
       accessorKey: "payment_type",
       header: "Tipo Pago",
       cell: ({ row }) => (
-        <Badge className="bg-pharmacy-accent text-white">
-          {String(row.getValue("payment_type")).charAt(0).toUpperCase() + String(row.getValue("payment_type")).slice(1)}
-        </Badge>
+        <div className="flex items-center gap-3" >
+          {row.getValue("payment_type") === "efectivo" ? <CashIcon /> : row.getValue("payment_type") === "tarjeta" ? <MasterCardIcon /> : <QRCodeIcon />}
+          <span className="font-semibold" >{row.getValue("payment_type")}</span>
+        </div>
       ),
       filterFn: (row, id, value) => {
         return value.includes(row.getValue(id))
@@ -142,7 +144,10 @@ export function PurchasesTable({ data, users }: PurchasesTableProps) {
       accessorKey: "created_at",
       header: ({ column }) => {
         return (
-          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="px-0">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
             Fecha Compra
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
@@ -232,7 +237,6 @@ export function PurchasesTable({ data, users }: PurchasesTableProps) {
                 <Fragment key={row.id}>
                   <TableRow
                     data-state={row.getIsSelected() && "selected"}
-                    className="hover:bg-pharmacy-secondary-light/50"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
@@ -245,42 +249,42 @@ export function PurchasesTable({ data, users }: PurchasesTableProps) {
                           <CollapsibleTrigger asChild>
                             <Button
                               variant="ghost"
-                              className="w-full justify-start text-pharmacy-accent hover:bg-pharmacy-secondary-light/70"
+                              className="w-full justify-start"
                             >
                               <ChevronDown className="h-4 w-4 mr-2" /> Ver Ítems de Compra ({row.original.items.length})
                             </Button>
                           </CollapsibleTrigger>
-                          <CollapsibleContent className="bg-pharmacy-secondary-light/30 p-4 border-t border-gray-200">
+                          <CollapsibleContent className="p-4 border-t border-gray-200">
                             <h4 className="text-md font-semibold text-text-heading mb-3">Detalle de Productos:</h4>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                               {row.original.items.map((item) => (
                                 <div key={item.id} className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
                                   <p className="font-semibold text-text-heading flex items-center mb-1">
-                                    <Package className="h-4 w-4 mr-2 text-pharmacy-primary" />
+                                    <Package className="h-4 w-4 mr-2 " />
                                     {getProductName(item.product_id)} ({getProductCode(item.product_id)})
                                   </p>
                                   <p className="text-sm text-text-body flex items-center">
-                                    <Box className="h-4 w-4 mr-2 text-pharmacy-accent" />
+                                    <Box className="h-4 w-4 mr-2 " />
                                     Cantidad: <span className="font-medium ml-1">{item.quantity}</span>
                                   </p>
                                   <p className="text-sm text-text-body flex items-center">
-                                    <DollarSign className="h-4 w-4 mr-2 text-pharmacy-accent" />
+                                    <DollarSign className="h-4 w-4 mr-2 " />
                                     Precio Unitario:{" "}
                                     <span className="font-medium ml-1">${item.unit_price.toFixed(2)}</span>
                                   </p>
                                   <p className="text-sm text-text-body flex items-center">
-                                    <Info className="h-4 w-4 mr-2 text-pharmacy-accent" />
+                                    <Info className="h-4 w-4 mr-2 " />
                                     Subtotal: <span className="font-medium ml-1">${item.subtotal.toFixed(2)}</span>
                                   </p>
                                   <p className="text-sm text-text-body flex items-center">
-                                    <Calendar className="h-4 w-4 mr-2 text-pharmacy-accent" />
+                                    <Calendar className="h-4 w-4 mr-2 " />
                                     Vencimiento:{" "}
                                     <span className="font-medium ml-1">
                                       {format(new Date(item.expiration_date), "dd/MM/yyyy", { locale: es })}
                                     </span>
                                   </p>
                                   <p className="text-sm text-text-body flex items-center">
-                                    <Tag className="h-4 w-4 mr-2 text-pharmacy-accent" />
+                                    <Tag className="h-4 w-4 mr-2 " />
                                     Lote: <span className="font-medium ml-1">{item.batch_code}</span>
                                   </p>
                                 </div>
@@ -309,7 +313,7 @@ export function PurchasesTable({ data, users }: PurchasesTableProps) {
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
-          className="border-gray-300 hover:bg-pharmacy-secondary-light hover:text-pharmacy-primary"
+          className="border-gray-300"
         >
           Anterior
         </Button>
@@ -318,7 +322,7 @@ export function PurchasesTable({ data, users }: PurchasesTableProps) {
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
-          className="border-gray-300 hover:bg-pharmacy-secondary-light hover:text-pharmacy-primary"
+          className="border-gray-300"
         >
           Siguiente
         </Button>

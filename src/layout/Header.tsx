@@ -43,7 +43,7 @@ export function Header() {
         <SidebarTrigger className="-ml-1 md:hidden" />
         <SidebarTrigger className="-ml-1 hidden md:flex" />
         <Link to="/dashboard" className="flex items-center space-x-2 flex-grow md:flex-grow-0">
-          <div className="w-8 h-8 bg-pharmacy-primary rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center">
             <Package className="w-5 h-5 text-white" />
           </div>
           <span className="text-xl font-semibold text-text-heading hidden sm:block">Farmacia</span>
@@ -75,7 +75,7 @@ export function Header() {
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <h4 className="font-semibold text-text-heading flex items-center">
-                              <Tag className="h-4 w-4 mr-1 text-pharmacy-accent" /> {product.name}
+                              <Tag className="h-4 w-4 mr-1" /> {product.name}
                             </h4>
                             <p className="text-xs text-text-body flex items-center mt-1">
                               <Box className="h-3 w-3 mr-1 text-text-muted" /> Categoría:{" "}

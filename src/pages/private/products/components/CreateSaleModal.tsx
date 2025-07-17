@@ -81,7 +81,7 @@ export function CreateSaleModal({ current_products = [] }: Props) {
       <DialogContent className="sm:max-w-[750px] p-6 rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-text-heading text-2xl font-bold flex items-center">
-            <ShoppingCart className="mr-2 h-6 w-6 text-pharmacy-primary" /> Registrar Nueva Venta
+            <ShoppingCart className="mr-2 h-6 w-6 " /> Registrar Nueva Venta
           </DialogTitle>
           <DialogDescription className="text-text-muted">
             Completa los campos para registrar una nueva transacción de venta.
@@ -124,7 +124,7 @@ export function CreateSaleModal({ current_products = [] }: Props) {
                 {status === "PRODUCTS" && <div>
 
                   <h3 className="text-lg font-semibold text-text-heading mt-2 flex items-center">
-                    <Package className="mr-2 h-5 w-5 text-pharmacy-primary" /> Productos de la Venta
+                    <Package className="mr-2 h-5 w-5 " /> Productos de la Venta
                   </h3>
 
                   <FieldArray name="items">
@@ -203,7 +203,7 @@ export function CreateSaleModal({ current_products = [] }: Props) {
 
                   <div className="flex justify-end items-center py-2 rounded-md">
                     <h3 className="text-xl font-bold text-text-heading flex items-center">
-                      <DollarSign className="mr-2 h-6 w-6 text-pharmacy-primary" /> Total de la Venta:
+                      <DollarSign className="mr-2 h-6 w-6 " /> Total de la Venta:
                     </h3>
                     <span className="text-2xl font-bold ml-4">
                       ${totalSale.toFixed(2)}

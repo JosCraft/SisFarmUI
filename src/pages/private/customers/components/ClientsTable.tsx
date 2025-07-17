@@ -112,10 +112,7 @@ export function ClientsTable({ data }: ClientsTableProps) {
               table.getRowModel().rows.map((row) => {
                 return (
                   <Fragment key={row.id}>
-                    <TableRow
-                      data-state={row.getIsSelected() && "selected"}
-                      className="hover:bg-pharmacy-secondary-light/50"
-                    >
+                    <TableRow data-state={row.getIsSelected() && "selected"} >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                       ))}
@@ -126,12 +123,12 @@ export function ClientsTable({ data }: ClientsTableProps) {
                           <CollapsibleTrigger asChild>
                             <Button
                               variant="ghost"
-                              className="w-full justify-start text-pharmacy-accent hover:bg-pharmacy-secondary-light/70"
+                              className="w-full justify-start"
                             >
                               <ChevronDown className="h-4 w-4 mr-2" /> Ver Historial de Compras
                             </Button>
                           </CollapsibleTrigger>
-                          <CollapsibleContent className="bg-pharmacy-secondary-light/30 p-4 border-t border-gray-200">
+                          <CollapsibleContent className="p-4 border-t border-gray-200">
                             <h4 className="text-md font-semibold text-text-heading mb-3">
                               Historial de Compras:
                             </h4>
@@ -161,7 +158,7 @@ export function ClientsTable({ data }: ClientsTableProps) {
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
-          className="border-gray-300 hover:bg-pharmacy-secondary-light hover:text-pharmacy-primary"
+          className="border-gray-300"
         >
           Anterior
         </Button>
@@ -170,7 +167,7 @@ export function ClientsTable({ data }: ClientsTableProps) {
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
-          className="border-gray-300 hover:bg-pharmacy-secondary-light hover:text-pharmacy-primary"
+          className="border-gray-300"
         >
           Siguiente
         </Button>

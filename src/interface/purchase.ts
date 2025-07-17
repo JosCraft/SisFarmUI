@@ -1,5 +1,12 @@
+import type { IBasePagination } from "./globals"
+
 export type IPaymentType = "efectivo" | "tarjeta" | "transferencia" | "credito"
 export type IPurchaseStatus = "pendiente" | "completada" | "cancelada"
+
+export interface IPurchasePaginate {
+  data: IPurchase[]
+  pagination: IBasePagination
+}
 
 export interface IPurchase {
   id: number

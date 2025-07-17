@@ -276,7 +276,7 @@ export function PurchaseFormModal({ }) {
                             batch_code: "",
                           })
                         }
-                        className="w-full border-dashed border-pharmacy-accent text-pharmacy-accent hover:bg-pharmacy-accent-light"
+                        className="w-full border-dashed"
                         disabled={isSubmitting}
                       >
                         <Plus className="mr-2 h-4 w-4" /> Añadir Otro Producto

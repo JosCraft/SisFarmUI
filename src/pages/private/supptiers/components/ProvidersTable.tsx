@@ -72,7 +72,7 @@ export function ProvidersTable({ data, onEdit, onDelete }: ProvidersTableProps) 
         return (
           <div className="flex space-x-2">
             <Button variant="outline" size="icon" onClick={() => onEdit(provider)} aria-label="Editar proveedor">
-              <Edit className="h-4 w-4 text-pharmacy-accent" />
+              <Edit className="h-4 w-4 " />
             </Button>
             <Button variant="outline" size="icon" onClick={() => onDelete(provider)} aria-label="Eliminar proveedor">
               <Trash2 className="h-4 w-4 text-red-500" />
@@ -129,7 +129,6 @@ export function ProvidersTable({ data, onEdit, onDelete }: ProvidersTableProps) 
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="hover:bg-pharmacy-secondary-light/50"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
@@ -152,7 +151,7 @@ export function ProvidersTable({ data, onEdit, onDelete }: ProvidersTableProps) 
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
-          className="border-gray-300 hover:bg-pharmacy-secondary-light hover:text-pharmacy-primary"
+          className="border-gray-300"
         >
           Anterior
         </Button>
@@ -161,7 +160,7 @@ export function ProvidersTable({ data, onEdit, onDelete }: ProvidersTableProps) 
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
-          className="border-gray-300 hover:bg-pharmacy-secondary-light hover:text-pharmacy-primary"
+          className="border-gray-300"
         >
           Siguiente
         </Button>

@@ -1,7 +1,4 @@
-"use client"
-
 import { Package, Home, ShoppingCart, Settings, ClipboardList, Sun, Moon, BarChart3 } from "lucide-react"
-
 import {
   Sidebar,
   SidebarContent,
