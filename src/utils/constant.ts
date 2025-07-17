@@ -1,9 +1,3 @@
-export const mockRoles = [
-  { id: 1, name: "Administrador" },
-  { id: 2, name: "Empleado" },
-  { id: 3, name: "Farmacéutico" },
-];
-
 export const mockUsers = [
   {
     id: 1,
@@ -117,234 +111,151 @@ export const mockUsers = [
   },
 ];
 
-export const mockProviders = [
+export const paymentTypes = ["efectivo", "tarjeta", "transferencia", "credito"]
+export const purchaseStatuses = ["pendiente", "completada", "cancelada"]
+
+export const mockPurchaseItems = [
   {
     id: 1,
-    name: "Distribuidora Farmacéutica S.A.",
-    nit: "900123456-7",
-    phone: "555-1111",
-    address: "Av. Principal 100, Ciudad Capital",
+    purchase_id: 1,
+    product_id: 1, // Paracetamol 500mg
+    quantity: 100,
+    unit_price: 4.5,
+    subtotal: 450.0,
+    expiration_date: "2025-12-31",
+    batch_code: "BATCH001",
   },
   {
     id: 2,
-    name: "Laboratorios Salud Total Ltda.",
-    nit: "800987654-3",
-    phone: "555-2222",
-    address: "Calle de la Ciencia 20, Zona Industrial",
+    purchase_id: 1,
+    product_id: 3, // Vitamina C 1000mg
+    quantity: 50,
+    unit_price: 7.0,
+    subtotal: 350.0,
+    expiration_date: "2026-06-30",
+    batch_code: "BATCH002",
   },
   {
     id: 3,
-    name: "Medicamentos Express C.A.",
-    nit: "700555444-1",
-    phone: "555-3333",
-    address: "Blvd. Los Remedios 50, Centro",
+    purchase_id: 2,
+    product_id: 2, // Amoxicilina 250mg/5ml
+    quantity: 20,
+    unit_price: 10.0,
+    subtotal: 200.0,
+    expiration_date: "2024-11-15",
+    batch_code: "BATCH003",
   },
   {
     id: 4,
-    name: "Insumos Médicos del Sur",
-    nit: "600333222-9",
-    phone: "555-4444",
-    address: "Carrera 45 #12-34, Barrio Nuevo",
+    purchase_id: 3,
+    product_id: 5, // Crema Hidratante 200g
+    quantity: 30,
+    unit_price: 13.0,
+    subtotal: 390.0,
+    expiration_date: "2025-09-30",
+    batch_code: "BATCH004",
   },
   {
     id: 5,
-    name: "Farmaco Global S.R.L.",
-    nit: "500777888-5",
-    phone: "555-5555",
-    address: "Diagonal 7 #8-90, El Prado",
+    purchase_id: 4,
+    product_id: 4, // Ibuprofeno 400mg
+    quantity: 80,
+    unit_price: 6.0,
+    subtotal: 480.0,
+    expiration_date: "2025-03-20",
+    batch_code: "BATCH005",
   },
   {
     id: 6,
-    name: "Química Pura Ltda.",
-    nit: "400111222-0",
-    phone: "555-6666",
-    address: "Callejón del Químico 1, Parque Industrial",
+    purchase_id: 4,
+    product_id: 6, // Omeprazol 20mg
+    quantity: 40,
+    unit_price: 8.5,
+    subtotal: 340.0,
+    expiration_date: "2026-01-10",
+    batch_code: "BATCH006",
   },
   {
     id: 7,
-    name: "Distribuciones Vitales",
-    nit: "300999888-7",
-    phone: "555-7777",
-    address: "Av. La Salud 300, Zona Médica",
+    purchase_id: 5,
+    product_id: 7, // Termómetro Digital
+    quantity: 10,
+    unit_price: 20.0,
+    subtotal: 200.0,
+    expiration_date: "2027-01-01",
+    batch_code: "BATCH007",
   },
   {
     id: 8,
-    name: "Productos Farmacéuticos del Norte",
-    nit: "200444555-2",
-    phone: "555-8888",
-    address: "Ruta 5 Km 10, Afueras",
-  },
-  {
-    id: 9,
-    name: "Suministros Hospitalarios",
-    nit: "100666777-8",
-    phone: "555-9999",
-    address: "Calle del Hospital 15, Sector Salud",
-  },
-  {
-    id: 10,
-    name: "Biotech Solutions S.A.",
-    nit: "950123789-0",
-    phone: "555-0000",
-    address: "Parque Tecnológico, Edificio A",
+    purchase_id: 5,
+    product_id: 8, // Alcohol Antiséptico 70%
+    quantity: 150,
+    unit_price: 2.5,
+    subtotal: 375.0,
+    expiration_date: "2025-07-01",
+    batch_code: "BATCH008",
   },
 ]
 
-export const mockCategories = [
-  { id: 1, name: "Analgésicos" },
-  { id: 2, name: "Antibióticos" },
-  { id: 3, name: "Vitaminas" },
-  { id: 4, name: "Antiinflamatorios" },
-  { id: 5, name: "Dermatológicos" },
-]
-
-export const mockPresentations = [
-  { id: 1, name: "Tabletas" },
-  { id: 2, name: "Cápsulas" },
-  { id: 3, name: "Jarabe" },
-  { id: 4, name: "Crema" },
-  { id: 5, name: "Inyectable" },
-]
-
-export const mockProducts = [
+export const mockPurchases = [
   {
     id: 1,
-    code: "PROD001",
-    name: "Paracetamol 500mg",
-    category_id: 1,
-    presentation_id: 1,
-    unit: "Caja",
-    price: 5.5,
-    descuento: 0.5,
-    stock: 120,
-    stock_min: 50,
-    description: "Analgésico y antipirético para aliviar el dolor y la fiebre.",
-    created_at: "2023-01-01T10:00:00Z",
+    provider_id: 1, // Distribuidora Farmacéutica S.A.
+    user_id: 1, // admin
+    total: 800.0, // 450 + 350
+    payment_type: "tarjeta",
+    status: "completada",
+    created_at: "2023-11-01T10:00:00Z",
+    items: mockPurchaseItems.filter((item) => item.purchase_id === 1),
   },
   {
     id: 2,
-    code: "PROD002",
-    name: "Amoxicilina 250mg/5ml",
-    category_id: 2,
-    presentation_id: 3,
-    unit: "Frasco",
-    price: 12.75,
-    descuento: 0.0,
-    stock: 30,
-    stock_min: 20,
-    description: "Antibiótico de amplio espectro para infecciones bacterianas.",
-    created_at: "2023-01-05T11:30:00Z",
+    provider_id: 2, // Laboratorios Salud Total Ltda.
+    user_id: 2, // empleado1
+    total: 200.0,
+    payment_type: "efectivo",
+    status: "pendiente",
+    created_at: "2023-11-05T11:30:00Z",
+    items: mockPurchaseItems.filter((item) => item.purchase_id === 2),
   },
   {
     id: 3,
-    code: "PROD003",
-    name: "Vitamina C 1000mg",
-    category_id: 3,
-    presentation_id: 2,
-    unit: "Frasco",
-    price: 8.2,
-    descuento: 0.8,
-    stock: 80,
-    stock_min: 30,
-    description: "Suplemento vitamínico para fortalecer el sistema inmune.",
-    created_at: "2023-01-10T09:00:00Z",
+    provider_id: 1, // Distribuidora Farmacéutica S.A.
+    user_id: 1, // admin
+    total: 390.0,
+    payment_type: "transferencia",
+    status: "completada",
+    created_at: "2023-11-10T09:00:00Z",
+    items: mockPurchaseItems.filter((item) => item.purchase_id === 3),
   },
   {
     id: 4,
-    code: "PROD004",
-    name: "Ibuprofeno 400mg",
-    category_id: 4,
-    presentation_id: 1,
-    unit: "Blíster",
-    price: 7.0,
-    descuento: 0.0,
-    stock: 40,
-    stock_min: 50, // Stock bajo
-    description: "Antiinflamatorio no esteroideo para dolor y fiebre.",
-    created_at: "2023-01-15T14:00:00Z",
+    provider_id: 3, // Medicamentos Express C.A.
+    user_id: 3, // farmaceutico
+    total: 820.0, // 480 + 340
+    payment_type: "credito",
+    status: "pendiente",
+    created_at: "2023-11-15T14:00:00Z",
+    items: mockPurchaseItems.filter((item) => item.purchase_id === 4),
   },
   {
     id: 5,
-    code: "PROD005",
-    name: "Crema Hidratante 200g",
-    category_id: 5,
-    presentation_id: 4,
-    unit: "Tubo",
-    price: 15.0,
-    descuento: 1.5,
-    stock: 60,
-    stock_min: 25,
-    description: "Crema para hidratación profunda de la piel seca.",
-    created_at: "2023-01-20T16:00:00Z",
+    provider_id: 4, // Insumos Médicos del Sur
+    user_id: 2, // empleado1
+    total: 575.0, // 200 + 375
+    payment_type: "efectivo",
+    status: "completada",
+    created_at: "2023-11-20T16:00:00Z",
+    items: mockPurchaseItems.filter((item) => item.purchase_id === 5),
   },
   {
     id: 6,
-    code: "PROD006",
-    name: "Omeprazol 20mg",
-    category_id: 1, // Ejemplo de otra categoría si existiera (ej. Gastrointestinales)
-    presentation_id: 2,
-    unit: "Caja",
-    price: 9.99,
-    descuento: 0.0,
-    stock: 90,
-    stock_min: 40,
-    description: "Inhibidor de la bomba de protones para acidez estomacal.",
-    created_at: "2023-02-01T08:00:00Z",
-  },
-  {
-    id: 7,
-    code: "PROD007",
-    name: "Termómetro Digital",
-    category_id: 5, // Ejemplo de otra categoría si existiera (ej. Dispositivos Médicos)
-    presentation_id: 1, // No aplica directamente, pero se usa para el ejemplo
-    unit: "Unidad",
-    price: 25.0,
-    descuento: 2.0,
-    stock: 15,
-    stock_min: 10,
-    description: "Termómetro para medición rápida y precisa de la temperatura corporal.",
-    created_at: "2023-02-10T10:00:00Z",
-  },
-  {
-    id: 8,
-    code: "PROD008",
-    name: "Alcohol Antiséptico 70%",
-    category_id: 5, // Ejemplo de otra categoría (ej. Antisépticos)
-    presentation_id: 3, // No aplica directamente, pero se usa para el ejemplo
-    unit: "Frasco",
-    price: 3.2,
-    descuento: 0.0,
-    stock: 200,
-    stock_min: 100,
-    description: "Solución antiséptica para desinfección de piel y superficies.",
-    created_at: "2023-02-15T12:00:00Z",
-  },
-  {
-    id: 9,
-    code: "PROD009",
-    name: "Vendas Elásticas",
-    category_id: 5, // Ejemplo de otra categoría (ej. Primeros Auxilios)
-    presentation_id: 1, // No aplica directamente, pero se usa para el ejemplo
-    unit: "Unidad",
-    price: 4.5,
-    descuento: 0.0,
-    stock: 70,
-    stock_min: 30,
-    description: "Vendas elásticas para soporte y compresión en lesiones.",
-    created_at: "2023-02-20T14:00:00Z",
-  },
-  {
-    id: 10,
-    code: "PROD010",
-    name: "Jarabe para la Tos",
-    category_id: 1, // Ejemplo de otra categoría (ej. Respiratorios)
-    presentation_id: 3,
-    unit: "Frasco",
-    price: 9.0,
-    descuento: 0.9,
-    stock: 25,
-    stock_min: 15,
-    description: "Jarabe para aliviar la tos seca y con flemas.",
-    created_at: "2023-02-25T16:00:00Z",
+    provider_id: 5, // Farmaco Global S.R.L.
+    user_id: 1, // admin
+    total: 150.0,
+    payment_type: "tarjeta",
+    status: "pendiente",
+    created_at: "2023-11-25T08:00:00Z",
+    items: [], // Ejemplo de compra sin ítems aún
   },
 ]

@@ -75,7 +75,6 @@ export function ViewProductDetailsModal({
             </CardContent>
           </Card>
 
-          {/* Sección 2: Precios y Stock */}
           <Card className="border border-pharmacy-secondary-light shadow-sm">
             <CardHeader className="p-4 pb-2">
               <CardTitle className="text-lg text-pharmacy-primary flex items-center">
@@ -117,7 +116,6 @@ export function ViewProductDetailsModal({
             </CardContent>
           </Card>
 
-          {/* Sección 3: Descripción */}
           <Card className="border border-pharmacy-secondary-light shadow-sm">
             <CardHeader className="p-4 pb-2">
               <CardTitle className="text-lg text-pharmacy-primary flex items-center">

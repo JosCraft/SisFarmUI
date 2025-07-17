@@ -7,7 +7,7 @@ import { ProvidersTable } from "./components/ProvidersTable"
 import { CreateProviderModal } from "./components/CreateProviderModal"
 import { EditProviderModal } from "./components/EditProviderModal"
 import { DeleteProviderModal } from "./components/DeleteProviderModal"
-import { useCreateSupplier, useDeleteSupplier, useGetSuppliers, useUpdateSupplier } from "@/hooks/useSupptiers"
+import { useCreateSupplier, useDeleteSupplier, useGetSuppliersPaginate, useUpdateSupplier } from "@/hooks/useSupptiers"
 
 export default function SuppliersPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
@@ -16,7 +16,7 @@ export default function SuppliersPage() {
   const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false) // Para formularios
   const [isDeleting, setIsDeleting] = useState(false) // Para eliminación
-  const { data: { data: providers } } = useGetSuppliers(1)
+  const { data: { data: providers } } = useGetSuppliersPaginate(1)
   const { mutate: createSupplier } = useCreateSupplier()
   const { mutate: updateSupplier } = useUpdateSupplier()
   const { mutate: deleteSupplier } = useDeleteSupplier()

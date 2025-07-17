@@ -1,3 +1,5 @@
+import type { IBasePagination } from "./globals";
+
 export interface IProduct {
   id: number;
   code: string;
@@ -25,14 +27,7 @@ export interface IPresentation {
 
 export interface IProductPagination {
   data: IProduct[];
-  pagination: {
-    current_page: number;
-    has_next: boolean;
-    has_previous: boolean;
-    page_size: number;
-    total_items: number;
-    total_pages: number;
-  };
+  pagination: IBasePagination;
 }
 
 export interface PCreateProduct {

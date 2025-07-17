@@ -1,13 +1,25 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from "@/lib/axios";
-import type { PCreateProvider, PEditProvider, ProviderPagination } from "@/interface/provider";
+import type { PCreateProvider, PEditProvider, Provider, ProviderPagination } from "@/interface/provider";
 import queryClient from "@/queryclient";
 
-export const useGetSuppliers = (page: number = 1) => {
-  return useQuery<ProviderPagination>({
+export const useGetSuppliers = () => {
+  return useQuery<Provider[]>({
     queryKey: ["suppliers"],
     queryFn: async () => {
-      const { data } = await axios.get(`/providers?page=${page}&page_size=10`);
+      const { data } = await axios.get(`/providers`);
+      return data.data;
+    },
+    refetchOnWindowFocus: false,
+    initialData: [],
+  });
+};
+
+export const useGetSuppliersPaginate = (page: number = 1) => {
+  return useQuery<ProviderPagination>({
+    queryKey: ["suppliers-paginate", page],
+    queryFn: async () => {
+      const { data } = await axios.get(`/providers/paginate?page=${page}&page_size=10`);
       return data.data;
     },
     refetchOnWindowFocus: false,

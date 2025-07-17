@@ -26,6 +26,7 @@ const validationSchema = Yup.object({
 })
 
 export function DialogDetailsForm({ onBack, onProcessSale, total }: CustomerDetailsFormProps) {
+  
   const [isLoading, setIsLoading] = React.useState(false)
 
   const formik = useFormik({
@@ -37,8 +38,6 @@ export function DialogDetailsForm({ onBack, onProcessSale, total }: CustomerDeta
     validationSchema,
     onSubmit: async (values) => {
       setIsLoading(true)
-      // Simulate API call for processing sale
-      await new Promise((resolve) => setTimeout(resolve, 2000))
       onProcessSale(values)
       setIsLoading(false)
     },

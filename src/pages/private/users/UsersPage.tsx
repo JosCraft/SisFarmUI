@@ -5,7 +5,6 @@ import { toast } from "sonner"
 import { UsersTable } from "./components/UsersTable"
 import { DeleteUserModal } from "./components/DeleteUserModal"
 import type { User } from "@/interface/user"
-import { mockRoles } from "@/utils/constant"
 import { UserFormModal, type UserFormValues } from "./components/UserFormModalProps"
 import { useCreateUser, useDeleteUser, useGetUsers, useUpdateRole, useUpdateUser } from "@/hooks/useUser"
 
@@ -96,7 +95,6 @@ export default function UsersPage() {
 
       <UsersTable
         data={users}
-        roles={mockRoles}
         onEdit={(user) => {
           setSelectedUser(user)
           setIsEditModalOpen(true)
@@ -117,7 +115,6 @@ export default function UsersPage() {
           setSelectedUser(null)
         }}
         user={selectedUser}
-        roles={mockRoles}
         onSubmit={selectedUser ? handleEditUser : handleCreateUser}
         isSubmitting={isSubmitting}
       />

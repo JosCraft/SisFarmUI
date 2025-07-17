@@ -1,31 +1,29 @@
-"use client"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { PlusCircle } from "lucide-react"
 import type { IProduct, PCreateProduct } from "@/interface/product"
 import { ProductsTable } from "./components/ProductsTable"
-import { AddStockModal } from "./components/AddStockModal"
 import { ViewProductDetailsModal } from "./components/ViewProductDetailsModal"
 import { DeleteProductModal } from "./components/DeleteProductModal"
 import { ProductFormModal, type ProductFormValues } from "./components/ProductFormValues"
 import { toast } from "sonner"
-import { useCreateProduct, useDeleteProduct, useGetProducts, useUpdateProduct } from "@/hooks/useProducts"
+import { useCreateProduct, useDeleteProduct, useGetProductsPaginate, useUpdateProduct } from "@/hooks/useProducts"
 import { useGetPresentations } from "@/hooks/usePresentation"
 import { useGetCategories } from "@/hooks/useCategory"
+import { CreateSaleModal } from "./components/CreateSaleModal"
 
 export default function ProductsPage() {
 
   const [isFormModalOpen, setIsFormModalOpen] = useState(false) // Para crear/editar
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
-  const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false) // Para formularios
   const [isDeleting, setIsDeleting] = useState(false) // Para eliminación
   const [selectedProductsForCart, setSelectedProductsForCart] = useState<IProduct[]>([]) // Para el carrito
-  const { data: { data: products } } = useGetProducts()
-  const { data: mockPresentations } = useGetPresentations()
-  const { data: mockCategories } = useGetCategories()
+  const { data: { data: products } } = useGetProductsPaginate()
+  const { data: presentations } = useGetPresentations()
+  const { data: categories } = useGetCategories()
   const { mutate: createProduct } = useCreateProduct()
   const { mutate: deleteProduct } = useDeleteProduct()
   const { mutate: updateProduct } = useUpdateProduct()
@@ -84,16 +82,6 @@ export default function ProductsPage() {
     }
   }
 
-  const handleAddStock = async (productId: number, quantity: number) => {
-    setIsSubmitting(true)
-    setIsAddStockModalOpen(false)
-    setSelectedProduct(null)
-    setIsSubmitting(false)
-    toast.success("Stock Actualizado", {
-      description: `Se ha añadido ${quantity} unidades al stock del producto.`,
-    })
-  }
-
   return (
     <div className="container mx-auto py-8">
       <div className="flex items-center justify-between mb-6">
@@ -106,12 +94,19 @@ export default function ProductsPage() {
         >
           <PlusCircle className="mr-2 h-4 w-4" /> Crear Nuevo Producto
         </Button>
+        <CreateSaleModal
+          current_products={selectedProductsForCart.map(product => ({
+            product_id: product.id,
+            quantity: 1,
+            unit_price: product.price,
+          }))}
+        />
       </div>
 
       <ProductsTable
         data={products}
-        categories={mockCategories}
-        presentations={mockPresentations}
+        categories={categories}
+        presentations={presentations}
         onEdit={(product) => {
           setSelectedProduct(product)
           setIsFormModalOpen(true)
@@ -124,14 +119,9 @@ export default function ProductsPage() {
           setSelectedProduct(product)
           setIsDetailsModalOpen(true)
         }}
-        onAddStock={(product) => {
-          setSelectedProduct(product)
-          setIsAddStockModalOpen(true)
-        }}
         onSelectedProductsChange={setSelectedProductsForCart}
       />
 
-      {/* Botón para "Añadir al Carrito" (ejemplo, si hay productos seleccionados) */}
       {selectedProductsForCart.length > 0 && (
         <div className="fixed bottom-4 right-4 z-50">
           <Button className="bg-pharmacy-accent hover:bg-pharmacy-accent-dark text-white shadow-lg">
@@ -147,8 +137,8 @@ export default function ProductsPage() {
           setSelectedProduct(null)
         }}
         product={selectedProduct}
-        categories={mockCategories}
-        presentations={mockPresentations}
+        categories={categories}
+        presentations={presentations}
         onSubmit={selectedProduct ? handleEditProduct : handleCreateProduct}
         isSubmitting={isSubmitting}
       />
@@ -166,7 +156,6 @@ export default function ProductsPage() {
         />
       )}
 
-      {/* Modal para Ver Detalles del Producto */}
       {selectedProduct && (
         <ViewProductDetailsModal
           isOpen={isDetailsModalOpen}
@@ -175,24 +164,11 @@ export default function ProductsPage() {
             setSelectedProduct(null)
           }}
           product={selectedProduct}
-          categories={mockCategories}
-          presentations={mockPresentations}
+          categories={categories}
+          presentations={presentations}
         />
       )}
 
-      {/* Modal para Añadir Stock */}
-      {selectedProduct && (
-        <AddStockModal
-          isOpen={isAddStockModalOpen}
-          onClose={() => {
-            setIsAddStockModalOpen(false)
-            setSelectedProduct(null)
-          }}
-          product={selectedProduct}
-          onAddStock={handleAddStock}
-          isSubmitting={isSubmitting}
-        />
-      )}
     </div>
   )
 }

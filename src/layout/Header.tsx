@@ -11,41 +11,30 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover" // Importar Popover components
-import { Card, CardContent } from "@/components/ui/card" // Importar Card para la lista de productos
-import { Badge } from "@/components/ui/badge" // Importar Badge para el stock
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { useAuthStore } from "@/store/useAuthStore"
 import { useProductMinStock } from "@/hooks/useProducts"
-import type { IProduct } from "@/interface/product"
-import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { AddStockModal } from "@/pages/private/products/components/AddStockModal"
-import { mockCategories, mockPresentations } from "@/utils/constant"
+import { useGetCategories } from "@/hooks/useCategory"
+import { useGetPresentations } from "@/hooks/usePresentation"
 
 export function Header() {
 
   const { user } = useAuthStore()
   const { data: productsLowStock } = useProductMinStock()
-  const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false)
-  const [selectedProductForStock, setSelectedProductForStock] = useState<IProduct | null>(null)
-  const [isSubmittingStock, setIsSubmittingStock] = useState(false)
+  const { data: categories } = useGetCategories()
+  const { data: presentations } = useGetPresentations()
   const navigate = useNavigate()
 
   const getCategoryName = (categoryId: number) => {
-    return mockCategories.find((cat) => cat.id === categoryId)?.name || "Desconocida"
+    return categories.find((cat) => cat.id === categoryId)?.name || "Desconocida"
   }
 
   const getPresentationName = (presentationId: number) => {
-    return mockPresentations.find((pres) => pres.id === presentationId)?.name || "Desconocida"
-  }
-
-  const handleAddStock = async (productId: number, quantity: number) => {
-    setIsSubmittingStock(true)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsAddStockModalOpen(false)
-    setSelectedProductForStock(null)
-    setIsSubmittingStock(false)
+    return presentations.find((pres) => pres.id === presentationId)?.name || "Desconocida"
   }
 
   return (
@@ -106,10 +95,6 @@ export function Header() {
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => {
-                              setSelectedProductForStock(product)
-                              setIsAddStockModalOpen(true)
-                            }}
                           >
                             <Plus className="h-4 w-4 mr-1" /> Stock
                           </Button>
@@ -168,19 +153,6 @@ export function Header() {
           </DropdownMenu>
         </div>
       </div>
-      {/* Modal para Añadir Stock (se abre desde el Popover) */}
-      {selectedProductForStock && (
-        <AddStockModal
-          isOpen={isAddStockModalOpen}
-          onClose={() => {
-            setIsAddStockModalOpen(false)
-            setSelectedProductForStock(null)
-          }}
-          product={selectedProductForStock}
-          onAddStock={handleAddStock}
-          isSubmitting={isSubmittingStock}
-        />
-      )}
     </header>
   )
 }

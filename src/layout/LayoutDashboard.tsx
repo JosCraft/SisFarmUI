@@ -6,9 +6,9 @@ import { Outlet } from "react-router-dom"
 export default function LayoutDashboard() {
   return (
     <SidebarProvider defaultOpen={true}>
-      <AppSidebar /> {/* Nuestro sidebar */}
+      <AppSidebar />
       <SidebarInset>
-        <Header /> {/* Nuestro header */}
+        <Header />
         <main className="flex-1 p-5">
           <Outlet />
         </main>

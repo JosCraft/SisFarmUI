@@ -12,44 +12,46 @@ import {
 } from "@/components/ui/sidebar"
 import { Link, useLocation } from "react-router-dom"
 
+const navItems = [
+  {
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Usuarios",
+    url: "/dashboard/usuarios",
+    icon: Users,
+  },
+  {
+    title: "Clientes",
+    url: "/dashboard/clientes",
+    icon: ShoppingBag,
+  },
+  {
+    title: "Proveedores",
+    url: "/dashboard/proveedores",
+    icon: Truck,
+  },
+  {
+    title: "Productos",
+    url: "/dashboard/productos",
+    icon: PackageIcon, // Usar el icono renombrado
+  },
+  {
+    title: "Compras",
+    url: "/dashboard/compras",
+    icon: PackageIcon, // Usar el icono renombrado
+  },
+]
+
 export function AppSidebar() {
 
   const pathname = useLocation().pathname
 
-  const navItems = [
-    {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: LayoutDashboard,
-    },
-    {
-      title: "Usuarios",
-      url: "/dashboard/usuarios",
-      icon: Users,
-    },
-    {
-      title: "Clientes",
-      url: "/dashboard/clients",
-      icon: ShoppingBag,
-    },
-    {
-      title: "Proveedores",
-      url: "/dashboard/proveedores",
-      icon: Truck,
-    },
-    {
-      title: "Productos",
-      url: "/dashboard/productos",
-      icon: PackageIcon, // Usar el icono renombrado
-    },
-  ]
-
   return (
     <Sidebar variant="inset" collapsible="icon">
-      {" "}
-      {/* Usamos variant="inset" y collapsible="icon" */}
       <SidebarHeader>
-        {/* Puedes añadir un logo o título aquí si lo deseas, se colapsará con el sidebar */}
         <div className="flex items-center justify-center p-2">
           <div className="w-8 h-8 bg-pharmacy-primary rounded-lg flex items-center justify-center">
             <PackageIcon className="w-5 h-5 text-white" />
@@ -78,10 +80,6 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      {/* Puedes añadir un footer aquí si lo deseas */}
-      {/* <SidebarFooter>
-        <p className="text-xs text-text-muted group-data-[state=collapsed]:hidden">© 2023 Farmacia</p>
-      </SidebarFooter> */}
     </Sidebar>
   )
 }

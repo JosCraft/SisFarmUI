@@ -185,7 +185,6 @@ export function SalesPage() {
   const [isCartOpen, setIsCartOpen] = React.useState(false)
   const [showCustomerForm, setShowCustomerForm] = React.useState(false) // New state for form
 
-  // Add to cart function
   const addToCart = (product: SaleProduct) => {
     setCartItems((prev) => {
       const existingItem = prev.find((item) => item.id === product.id)
@@ -205,15 +204,12 @@ export function SalesPage() {
     }
   }
 
-  // Remove from cart
   const removeFromCart = (id: string) => {
     setCartItems((prev) => prev.filter((item) => item.id !== id))
   }
 
-  // Calculate total
   const total = cartItems.reduce((sum, item) => sum + item.precioVenta * item.quantity, 0)
 
-  // Handle "Procesar Venta" click
   const handleProcessSaleClick = () => {
     setShowCustomerForm(true)
   }
@@ -389,9 +385,7 @@ export function SalesPage() {
 
       <Card>
         <CardContent className="p-6">
-          {/* Toolbar */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-            {/* Search */}
             <div className="flex items-center space-x-2 flex-1 max-w-sm">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -558,7 +552,6 @@ export function SalesPage() {
         </CardContent>
       </Card>
 
-      {/* Cart/Customer Details Modal */}
       <Dialog
         open={isCartOpen}
         onOpenChange={(open) => {

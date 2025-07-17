@@ -8,11 +8,23 @@ import type {
 } from "@/interface/product";
 import queryClient from "@/queryclient";
 
-export const useGetProducts = (page: number = 1) => {
-  return useQuery<IProductPagination>({
+export const useGetProducts = () => {
+  return useQuery<IProduct[]>({
     queryKey: ["products"],
     queryFn: async () => {
-      const { data } = await axios.get(`/products?page=${page}&page_size=10`);
+      const { data } = await axios.get(`/products`);
+      return data.data;
+    },
+    initialData: []
+  });
+};
+
+export const useGetProductsPaginate = (page: number = 1) => {
+  return useQuery<IProductPagination>({
+    queryKey: ["products-paginate", page],
+    queryFn: async () => {
+      const { data } = await axios.get(`/products/paginate?page=${page}&page_size=10`);
+      console.log(data);
       return data.data;
     },
     initialData: {

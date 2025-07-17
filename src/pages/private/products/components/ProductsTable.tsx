@@ -1,6 +1,3 @@
-"use client"
-
-import * as React from "react"
 import {
   type ColumnDef,
   flexRender,
@@ -26,11 +23,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ArrowUpDown, MoreHorizontal, Eye, Edit, Trash2, Plus } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal, Eye, Edit, Trash2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import type { ICategory, IProduct } from "@/interface/product"
 import type { IPresentation } from "@/interface/presentation"
+import { useEffect, useState } from "react"
 
 interface ProductsTableProps {
   data: IProduct[]
@@ -39,7 +37,6 @@ interface ProductsTableProps {
   onEdit: (product: IProduct) => void
   onDelete: (product: IProduct) => void
   onViewDetails: (product: IProduct) => void
-  onAddStock: (product: IProduct) => void
   onSelectedProductsChange: (selectedProducts: IProduct[]) => void
 }
 
@@ -50,12 +47,12 @@ export function ProductsTable({
   onEdit,
   onDelete,
   onViewDetails,
-  onAddStock,
   onSelectedProductsChange,
 }: ProductsTableProps) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({})
+
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
 
   const getCategoryName = (categoryId: number) => {
     return categories.find((cat) => cat.id === categoryId)?.name || "Desconocida"
@@ -73,7 +70,7 @@ export function ProductsTable({
           checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
           onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
           aria-label="Seleccionar todos los productos"
-          className="border-gray-300 data-[state=checked]:bg-pharmacy-primary data-[state=checked]:text-white"
+          className="border-gray-300 data-[state=checked]:bg-slate-950 data-[state=checked]:text-white"
         />
       ),
       cell: ({ row }) => (
@@ -81,7 +78,7 @@ export function ProductsTable({
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Seleccionar fila"
-          className="border-gray-300 data-[state=checked]:bg-pharmacy-primary data-[state=checked]:text-white"
+          className="border-gray-300 data-[state=checked]:bg-slate-950 data-[state=checked]:text-white"
         />
       ),
       enableSorting: false,
@@ -162,12 +159,12 @@ export function ProductsTable({
       },
       cell: ({ row }) => {
         const stock: number = row.getValue("stock")
-        const stockMin: number = row.original.stock_min
+        const stockMin = row.original.stock_min
         return (
           <Badge
             className={cn(
               "font-semibold",
-              stock <= stockMin ? "bg-red-500 text-white" : "bg-pharmacy-primary text-white",
+              stock <= stockMin ? "bg-red-500 text-white" : "text-slate-950 bg-slate-300",
             )}
           >
             {stock}
@@ -197,9 +194,6 @@ export function ProductsTable({
               <DropdownMenuItem onClick={() => onEdit(product)}>
                 <Edit className="mr-2 h-4 w-4" /> Editar
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => onAddStock(product)}>
-                <Plus className="mr-2 h-4 w-4" /> Añadir Stock
-              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => onDelete(product)} className="text-red-600">
                 <Trash2 className="mr-2 h-4 w-4" /> Eliminar
@@ -228,7 +222,7 @@ export function ProductsTable({
     },
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     onSelectedProductsChange(table.getSelectedRowModel().rows.map((row) => row.original))
   }, [rowSelection, onSelectedProductsChange, table])
 

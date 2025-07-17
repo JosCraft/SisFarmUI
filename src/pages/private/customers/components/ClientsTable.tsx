@@ -12,48 +12,43 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowUpDown, Edit, Trash2 } from "lucide-react"
-import { ChangeRoleSelect } from "./ChangeRoleSelect"
-import type { User } from "@/interface/user"
-import { useState } from "react"
-import { Switch } from "@/components/ui/switch"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { ChevronDown, ArrowUpDown } from "lucide-react"
+import type { IClient } from "@/interface/customer"
+import { Fragment, useState } from "react"
 
-interface UsersTableProps {
-  data: User[]
-  onEdit: (user: User) => void
-  onDelete: (user: User) => void
-  onRoleChange: (userId: number, newRoleId: number) => void
-  onStatusChange: (userId: number, newStatus: boolean) => void
+interface ClientsTableProps {
+  data: IClient[]
 }
 
-export function UsersTable({
-  data,
-  onEdit,
-  onDelete,
-  onRoleChange,
-  onStatusChange
-}: UsersTableProps) {
-
+export function ClientsTable({ data }: ClientsTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
-  const columns: ColumnDef<User>[] = [
+  const columns: ColumnDef<IClient>[] = [
     {
-      accessorKey: "username",
+      accessorKey: "full_name",
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="px-0">
-            Usuario
+            Nombre Completo
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         )
       },
-      cell: ({ row }) => <div className="capitalize">{row.getValue("username")}</div>,
+      cell: ({ row }) => <div className="font-medium">{row.getValue("full_name")}</div>,
     },
     {
-      accessorKey: "full_name",
-      header: "Nombre Completo",
-      cell: ({ row }) => <div>{row.getValue("full_name")}</div>,
+      accessorKey: "ci",
+      header: ({ column }) => {
+        return (
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="px-0">
+            CI
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue("ci")}</div>,
     },
     {
       accessorKey: "phone",
@@ -61,45 +56,14 @@ export function UsersTable({
       cell: ({ row }) => <div>{row.getValue("phone")}</div>,
     },
     {
-      accessorKey: "role_id",
-      header: "Rol",
-      cell: ({ row }) => (
-        <ChangeRoleSelect
-          userId={row.original.id}
-          currentRoleId={row.getValue("role_id")}
-          onRoleChange={onRoleChange}
-        />
-      ),
+      accessorKey: "address",
+      header: "Dirección",
+      cell: ({ row }) => <div>{row.getValue("address")}</div>,
     },
     {
-      accessorKey: "status",
-      header: "Estado",
-      cell: ({ row }) => (
-        <div>
-          <Switch
-            checked={row.getValue("status")}
-            onCheckedChange={(checked) => onStatusChange(row.original.id, checked)}
-          />
-        </div>
-      ),
-    },
-    {
-      id: "actions",
-      enableHiding: false,
-      header: "Acciones",
-      cell: ({ row }) => {
-        const user = row.original
-        return (
-          <div className="flex space-x-2">
-            <Button variant="outline" size="icon" onClick={() => onEdit(user)} aria-label="Editar usuario">
-              <Edit className="h-4 w-4 text-pharmacy-accent" />
-            </Button>
-            <Button variant="outline" size="icon" onClick={() => onDelete(user)} aria-label="Eliminar usuario">
-              <Trash2 className="h-4 w-4 text-red-500" />
-            </Button>
-          </div>
-        )
-      },
+      accessorKey: "email",
+      header: "Email",
+      cell: ({ row }) => <div>{row.getValue("email")}</div>,
     },
   ]
 
@@ -122,9 +86,9 @@ export function UsersTable({
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Buscar por usuario..."
-          value={(table.getColumn("username")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => table.getColumn("username")?.setFilterValue(event.target.value)}
+          placeholder="Buscar por nombre o CI..."
+          value={(table.getColumn("full_name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) => table.getColumn("full_name")?.setFilterValue(event.target.value)}
           className="max-w-sm h-10 border-gray-300 focus:ring-pharmacy-primary focus:border-pharmacy-primary"
         />
       </div>
@@ -145,17 +109,42 @@ export function UsersTable({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  className="hover:bg-pharmacy-secondary-light/50"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                  ))}
-                </TableRow>
-              ))
+              table.getRowModel().rows.map((row) => {
+                return (
+                  <Fragment key={row.id}>
+                    <TableRow
+                      data-state={row.getIsSelected() && "selected"}
+                      className="hover:bg-pharmacy-secondary-light/50"
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                      ))}
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={columns.length} className="p-0">
+                        <Collapsible>
+                          <CollapsibleTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              className="w-full justify-start text-pharmacy-accent hover:bg-pharmacy-secondary-light/70"
+                            >
+                              <ChevronDown className="h-4 w-4 mr-2" /> Ver Historial de Compras
+                            </Button>
+                          </CollapsibleTrigger>
+                          <CollapsibleContent className="bg-pharmacy-secondary-light/30 p-4 border-t border-gray-200">
+                            <h4 className="text-md font-semibold text-text-heading mb-3">
+                              Historial de Compras:
+                            </h4>
+                            <p className="text-center text-text-muted py-4">
+                              No hay historial de compras para este cliente.
+                            </p>
+                          </CollapsibleContent>
+                        </Collapsible>
+                      </TableCell>
+                    </TableRow>
+                  </Fragment>
+                )
+              })
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center text-text-muted">

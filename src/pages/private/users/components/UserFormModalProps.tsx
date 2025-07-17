@@ -5,13 +5,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import InputField from "@/components/fields/InputField"
-import type { Role, User } from "@/interface/user"
+import type { User } from "@/interface/user"
 
 interface UserFormModalProps {
   isOpen: boolean
   onClose: () => void
   user?: User | null // Si se pasa un usuario, es para editar
-  roles: Role[]
   onSubmit: (values: UserFormValues) => void
   isSubmitting: boolean
 }
