@@ -12,7 +12,7 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible"
 import { ChevronDown, ArrowUpDown } from "lucide-react"
 import type { IClient } from "@/interface/customer"
 import { Fragment, useState } from "react"
@@ -22,21 +22,36 @@ interface ClientsTableProps {
 }
 
 export function ClientsTable({ data }: ClientsTableProps) {
+
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [showHistory, setShowHistory] = useState("")
+
+  const handleToggleHistory = (clientId: string) => {
+    setShowHistory((prev) => (prev === clientId ? "" : clientId))
+  }
 
   const columns: ColumnDef<IClient>[] = [
     {
       accessorKey: "full_name",
       header: ({ column }) => {
         return (
-          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="px-0">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="px-0"
+          >
             Nombre Completo
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         )
       },
-      cell: ({ row }) => <div className="font-medium">{row.getValue("full_name")}</div>,
+      cell: ({ row }) => <div className="font-medium flex items-center gap-5">
+        <Button variant="ghost" onClick={() => handleToggleHistory(row.id)} >
+          <ChevronDown className="h-4 w-4 mr-2" />
+        </Button>
+        {row.getValue("full_name")}
+      </div>,
     },
     {
       accessorKey: "ci",
@@ -59,11 +74,6 @@ export function ClientsTable({ data }: ClientsTableProps) {
       accessorKey: "address",
       header: "Dirección",
       cell: ({ row }) => <div>{row.getValue("address")}</div>,
-    },
-    {
-      accessorKey: "email",
-      header: "Email",
-      cell: ({ row }) => <div>{row.getValue("email")}</div>,
     },
   ]
 
@@ -119,15 +129,7 @@ export function ClientsTable({ data }: ClientsTableProps) {
                     </TableRow>
                     <TableRow>
                       <TableCell colSpan={columns.length} className="p-0">
-                        <Collapsible>
-                          <CollapsibleTrigger asChild>
-                            <Button
-                              variant="ghost"
-                              className="w-full justify-start"
-                            >
-                              <ChevronDown className="h-4 w-4 mr-2" /> Ver Historial de Compras
-                            </Button>
-                          </CollapsibleTrigger>
+                        <Collapsible open={showHistory === row.id} onOpenChange={(open) => setShowHistory(open ? row.id : "")}>
                           <CollapsibleContent className="p-4 border-t border-gray-200">
                             <h4 className="text-md font-semibold text-text-heading mb-3">
                               Historial de Compras:

@@ -162,9 +162,7 @@ export function ProductsTable({
         const stockMin = row.original.stock_min
         return (
           <Badge
-            className={cn(
-              "font-semibold",
-              stock <= stockMin ? "bg-red-500 text-white" : "text-slate-950 bg-slate-300",
+            className={cn("font-bold", stock <= stockMin ? "bg-red-100 text-red-700" : "text-green-700 bg-green-100",
             )}
           >
             {stock}
@@ -181,7 +179,7 @@ export function ProductsTable({
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
+              <Button variant="secondary" className="h-8 w-8 p-0">
                 <span className="sr-only">Abrir menú</span>
                 <MoreHorizontal className="h-4 w-4" />
               </Button>

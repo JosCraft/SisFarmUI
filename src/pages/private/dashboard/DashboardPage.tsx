@@ -255,9 +255,7 @@ function DataTable<TData, TValue>({
 export function DashboardPage() {
   return (
     <div className="flex-1 space-y-6 p-6 bg-gray-50">
-      {/* Products Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Best Selling Products */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg font-semibold">Productos mas vendidos</CardTitle>
@@ -269,8 +267,6 @@ export function DashboardPage() {
             <DataTable columns={bestSellingColumns} data={bestSellingProducts} />
           </CardContent>
         </Card>
-
-        {/* Out of Stock Products */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             <CardTitle className="text-lg font-semibold">Productos Agotados</CardTitle>
@@ -284,7 +280,6 @@ export function DashboardPage() {
         </Card>
       </div>
 
-      {/* Product Quantity Widget */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200">
           <CardContent className="p-6">

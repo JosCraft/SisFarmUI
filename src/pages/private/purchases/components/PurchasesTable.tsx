@@ -102,8 +102,8 @@ export function PurchasesTable({ data, users }: PurchasesTableProps) {
         )
       },
       cell: ({ row }) => {
-        const total = Number.parseFloat(row.getValue("total"))
-        return <div className="text-right font-semibold">${total.toFixed(2)}</div>
+        const total = parseFloat(row.getValue("total"))
+        return <div className="text-right font-semibold">${total}</div>
       },
     },
     {
